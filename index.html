@@ -24,10 +24,133 @@ class: center, middle
 # Ember Module Unification
 ## Atlanta Ember
 ## May 10 2016
+---
+class: center, middle
+# Pre Ember App Kit
+![:scale 100%](wild-west.jpg)
+---
+# Ember App Kit
+```
+app
+  app.js
+ controllers
+   post-index.js
+   post.js
+ models
+   author.js
+   post.js
+ router.js
+ routes
+   post-index.js
+   post.js
+ styles
+   app.css
+ templates
+   application.hbs
+   post-index.hbs
+   post.hbs
+ views
+   post.js
+```
+---
+# Ember CLI
+```
+app
+  app.js
+ components
+    post.js
+ controllers
+   post.js
+ models
+   author.js
+   post.js
+ router.js
+ routes
+   post-index.js
+   post.js
+ styles
+   app.css
+ templates
+   application.hbs
+   post.hbs
+   components
+     blog-post.hbs
+tests
+  unit
+    components
+      blog-post-test.js
+```
+---
+# Pods
+```
+app
+  app.js
+  author
+    model.js
+  post
+    controller.js
+    model.js
+    route.js
+    template.hbs
+  router.js
+  routes
+    post-index.js
+  styles
+    app.css
+  templates
+    application.hbs
+    components
+      blog-post.hbs
+tests
+  unit
+    components
+      blog-post-test.js
+```
+---
+# Problems with current structures
+- Confusion between approaches
+- Branching is unreasonable
+- Name collisions with addons
+- Multiple imports/exports for addons
+- Local lookup?
+- Module resolution is inefficient and difficult to reason about
+---
+# Module unification RFC
+<https://github.com/emberjs/rfcs>
+<https://github.com/emberjs/rfcs/pull/143>
+---
+# Module unification goals
+- Reasonable number of items at a given level of hierarchy
+- No slashes in component names
+- Namespaced addons
+- Movable subtrees
+- The right structure should be obvious
+- Ability to add (or remove) types
+- Tests and styles alongside corresponding components
+---
+# Module unification goals cont.
+- Local relative lookup of components and helpers
+- No "titlebar problem"
+- Resolver configured by rules (not JavaScript)
+- Efficient static analysis of structure at build time
+- Extensible module classification
+---
+# Proposed new structure
+<https://github.com/dgeb/rfcs/blob/module-unification/text/0000-module-unification.md#example-application>
+---
+# Try it out
+[ember-module-migrator](https://github.com/rwjblue/ember-module-migrator)
+---
+# More Information
+- Ember NY Meetup (May 26)
     </textarea>
     <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js">
     </script>
     <script>
+      remark.macros.scale = function(percentage) {
+        var url = this;
+        return '<img src="' + url + '" style="width: ' + percentage + '" />';
+      };
       var slideshow = remark.create({
           highlightStyle: 'monokai',
           highlightLanguage: 'javascript',
